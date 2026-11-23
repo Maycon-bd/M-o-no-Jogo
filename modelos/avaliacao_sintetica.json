@@ -1,0 +1,32 @@
+{
+  "origem": "sintética",
+  "amostras_treino": 1200,
+  "amostras_teste": 360,
+  "gestos": [
+    "esquerda",
+    "direita",
+    "parar"
+  ],
+  "matriz": [
+    [
+      120,
+      0,
+      0
+    ],
+    [
+      0,
+      120,
+      0
+    ],
+    [
+      0,
+      0,
+      120
+    ]
+  ],
+  "acertos": 360,
+  "acuracia": 1.0,
+  "abaixo_de_080": 0,
+  "participantes_teste": 0,
+  "mediana_mlp_ms": 0.0185
+}

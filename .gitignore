@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+.venv/
+dados/
+modelos/mlp_webcam.json
+modelos/avaliacao_webcam.json
