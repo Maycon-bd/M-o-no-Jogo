@@ -24,6 +24,23 @@ instalação, a captura, a detecção e a classificação ocorrem localmente.
 O treinamento inicial utiliza dados sintéticos. A avaliação correspondente
 fica em `modelos/avaliacao_sintetica.json`.
 
+## Minijogo do Danilo
+
+Colete o máximo de estrelas em 20 segundos. Com a mesma instalação acima:
+
+```powershell
+.\.venv\Scripts\python.exe jogo.py
+```
+
+- Indicador apontado para o lado move o personagem; palma aberta para.
+  Sem mão na câmera, o personagem fica parado.
+- A miniatura no canto mostra a câmera e o gesto reconhecido aparece no topo.
+- Se a webcam não abrir, o jogo entra sozinho no modo teclado (setas).
+  Para forçar esse modo: `jogo.py --teclado`. Outra câmera: `--camera 1`.
+- Ao fim da rodada, Espaço ou R joga de novo; Esc sai.
+- Com os pesos da webcam: `jogo.py --modelo modelos/mlp_webcam.json`.
+- `python teste_jogo.py` confere as regras do jogo sem precisar de câmera.
+
 ## Materiais
 
 - `docs/Relatorio tecnico - Maycon.docx` explica arquitetura, treinamento e validação.
