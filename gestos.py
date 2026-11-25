@@ -136,8 +136,8 @@ class Webcam:
 class ControleGestos:
     """API do jogo: com o contexto aberto, leia um comando por iteração."""
 
-    def __init__(self, indice=0, modelo=MODELO):
-        self.mlp = MLP(modelo)
+    def __init__(self, indice=0, modelo=MODELO, classificador=None):
+        self.classificador = classificador if classificador is not None else MLP(modelo)
         self.filtro = Estabilizador()
         self.webcam = Webcam(indice)
 
@@ -150,13 +150,15 @@ class ControleGestos:
     def ler(self):
         frame, entrada, pontos = self.webcam.ler()
         if entrada is None:
+            if hasattr(self.classificador, "imagem"):
+                self.classificador.imagem = None
             self.filtro.reiniciar()
             estado = "sem_mao" if frame is not None else "falha_camera"
             return Leitura("parar", estado), frame
-        probabilidades = self.mlp.probabilidades(entrada)
+        probabilidades = self.classificador.probabilidades(entrada)
         indice = int(probabilidades.argmax())
         leitura = self.filtro.atualizar(
-            self.mlp.classes[indice], float(probabilidades[indice])
+            self.classificador.classes[indice], float(probabilidades[indice])
         )
         desenhar(self.webcam.cv2, frame, pontos)
         return leitura, frame

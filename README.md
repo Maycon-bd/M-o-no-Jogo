@@ -4,53 +4,94 @@
 - Redes Neurais · Professor Sandro Silva Moreira
 - Maycon Garcia Silva e Danilo Da Silva Faria
 
-## Diagnóstico do Maycon
+## Como rodar no Windows
 
-No PowerShell, abra esta pasta e execute com Python 3.12:
+Abra o PowerShell nesta pasta com **Python 3.12** disponível. Instale e abra o
+[Ollama para Windows](https://ollama.com/download/windows), depois execute:
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe gestos.py
-```
-
-Use `--camera 1` se a câmera estiver em outro índice. A janela mostra a mão
-espelhada, o comando e o estado. Aponte o indicador na direção desejada
-com os demais dedos recolhidos ou mostre a palma aberta para parar.
-Pressione Esc para sair. Feche a janela de diagnóstico antes de abrir o jogo.
-
-O modelo do Google e os pesos iniciais estão em `modelos/`. Depois da
-instalação, a captura, a detecção e a classificação ocorrem localmente.
-O treinamento inicial utiliza dados sintéticos. A avaliação correspondente
-fica em `modelos/avaliacao_sintetica.json`.
-
-## Minijogo do Danilo
-
-Colete o máximo de estrelas em 20 segundos. Com a mesma instalação acima:
-
-```powershell
+ollama pull qwen2.5:0.5b
 .\.venv\Scripts\python.exe jogo.py
 ```
 
-- Indicador apontado para o lado move o personagem; palma aberta para.
-  Sem mão na câmera, o personagem fica parado.
-- A miniatura no canto mostra a câmera e o gesto reconhecido aparece no topo.
-- Se a webcam não abrir, o jogo entra sozinho no modo teclado (setas).
-  Para forçar esse modo: `jogo.py --teclado`. Outra câmera: `--camera 1`.
-- Ao fim da rodada, Espaço ou R joga de novo; Esc sai.
-- Com os pesos da webcam: `jogo.py --modelo modelos/mlp_webcam.json`.
-- `python teste_jogo.py` confere as regras do jogo sem precisar de câmera.
+Na janela, aponte o indicador na direção desejada com os outros dedos
+recolhidos. Mostre a palma aberta para parar. A rodada dura **20 segundos**.
+No fim, o treinador mostra a dica e a origem dela. **Espaço/R** reinicia e
+**Esc** sai. Depois da instalação e do download inicial, mantenha o Ollama
+aberto e rode o jogo com a internet desligada.
+
+| Comando após `jogo.py` | Uso |
+| --- | --- |
+| `--camera 1` | Tenta outra câmera. |
+| `--teclado` | Joga com as setas. Se a câmera falhar na abertura ou durante a rodada, o jogo também muda para esse modo. |
+| `--mlp` | Troca a CNN pela MLP original para a demonstração comparativa. |
+| `--modelo modelos/cnn_webcam.npz` | Usa pesos da CNN reentreinados com amostras reais. Arquivos JSON continuam sendo pesos da MLP. |
+| `--sem-treinador` | Joga com a tela final de métricas e sem consultar o Ollama. |
+
+Para verificar só o Qwen, execute `.\.venv\Scripts\python.exe treinador.py`.
+Devem aparecer duas linhas identificadas como **SLM local**. Se aparecer
+**Dica de contingência**, confira se o Ollama está aberto e se
+`ollama list` mostra `qwen2.5:0.5b`.
+
+## Como a aplicação funciona
+
+1. O OpenCV espelha a imagem e o MediaPipe encontra 21 pontos da mão.
+2. O jogo transforma os pontos em uma imagem monocromática de 64 × 64 pixels
+   e mostra essa entrada ao lado da câmera. A CNN usa duas convoluções 3 × 3,
+   ReLU, pooling e uma camada de três saídas. O filtro confirma um gesto com
+   probabilidade de pelo menos 0,80 em três quadros consecutivos.
+3. Ao fim da rodada, o jogo mede placar, tempo sem mão visível, tempo usando
+   teclado e trocas de direção reconhecidas. O Qwen recebe esses quatro
+   valores e uma indicação do aspecto a comentar via API local do Ollama.
+   A classificação e o jogo seguem disponíveis com uma dica de contingência
+   quando a consulta falha.
+
+Os pesos iniciais foram treinados com dados sintéticos. O relatório
+`modelos/avaliacao_cnn.json` compara CNN e MLP nos mesmos 360 vetores de
+teste sintético. O tempo da CNN inclui a rasterização. Os tempos excluem a
+captura e o MediaPipe. O Qwen é pré-treinado. A aplicação usa instruções e uma
+saída JSON curta para gerar a dica.
+
+## Testes e coleta com webcam
+
+O teste automatizado roda sem câmera. O diagnóstico por webcam usa a MLP de
+referência e desenha os pontos da mão. Feche a janela antes de iniciar o jogo.
+
+```powershell
+.\.venv\Scripts\python.exe teste_jogo.py
+.\.venv\Scripts\python.exe gestos.py
+```
+
+Para medir generalização, colete pelo menos 20 poses independentes por gesto
+e por pessoa, com as três classes em cada grupo. As teclas **1/2/3** escolhem
+o gesto, **Espaço** registra os pontos e **Esc** encerra. Reserve a última
+pessoa para teste e use outras pessoas no treino. PyTorch só é necessário
+para reentreinar:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+.\.venv\Scripts\python.exe treinar.py coletar --csv dados/gestos.csv --pessoa P01
+.\.venv\Scripts\python.exe treinar.py coletar --csv dados/gestos.csv --pessoa P02
+.\.venv\Scripts\python.exe treinar_cnn.py --csv dados/gestos.csv --teste-pessoa P02
+.\.venv\Scripts\python.exe jogo.py --modelo modelos/cnn_webcam.npz
+```
+
+Nesse ensaio, a CNN é treinada com os vetores sintéticos e as pessoas de
+treino, e a MLP original é a referência. A mesma pessoa reservada é usada
+para medir os dois modelos. A avaliação é gravada em
+`modelos/avaliacao_cnn_webcam.json`. Para reproduzir o ensaio sintético,
+rode `treinar_cnn.py` sem argumentos.
 
 ## Materiais
 
-- `docs/Relatorio tecnico - Maycon.docx` explica arquitetura, treinamento e validação.
-- `docs/Guia de integracao - Danilo.docx` descreve a API, o trabalho do Danilo e o ensaio.
+- `docs/Relatorio tecnico - Maycon.docx` e `docs/Guia de integracao - Danilo.docx` documentam a etapa anterior com MLP. A arquitetura atual está descrita neste README.
 - `banner/Banner - Mao no Jogo.pdf` é o banner em 90 × 120 cm.
 - `banner/Banner editavel - Mao no Jogo.svg` permite atualizar texto e figuras em um editor vetorial. Exporte em 90 × 120 cm após editar.
 
-O banner registra a avaliação sintética e traz uma ilustração do jogo.
-Para fechar a versão de exposição, a dupla pode incluir o teste com participantes,
-uma captura do minijogo integrado e os e-mails acadêmicos no cabeçalho.
+Para fechar a versão de exposição, teste a webcam e o SLM offline no notebook
+da bancada e atualize o banner com os dados de participantes que conseguir medir.
 
 ## Título e resumo para o cadastro
 

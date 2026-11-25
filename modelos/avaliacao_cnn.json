@@ -1,0 +1,55 @@
+{
+  "origem_teste": "sintética",
+  "amostras_treino_cnn": 1200,
+  "amostras_teste": 360,
+  "gestos": [
+    "esquerda",
+    "direita",
+    "parar"
+  ],
+  "mlp_pesos": "mlp.json",
+  "cnn": {
+    "acertos": 337,
+    "matriz": [
+      [
+        114,
+        2,
+        4
+      ],
+      [
+        1,
+        109,
+        10
+      ],
+      [
+        5,
+        1,
+        114
+      ]
+    ],
+    "abaixo_de_080": 17,
+    "mediana_ms": 1.7511
+  },
+  "mlp": {
+    "acertos": 360,
+    "matriz": [
+      [
+        120,
+        0,
+        0
+      ],
+      [
+        0,
+        120,
+        0
+      ],
+      [
+        0,
+        0,
+        120
+      ]
+    ],
+    "abaixo_de_080": 0,
+    "mediana_ms": 0.018
+  }
+}

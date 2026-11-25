@@ -4,3 +4,5 @@ __pycache__/
 dados/
 modelos/mlp_webcam.json
 modelos/avaliacao_webcam.json
+modelos/cnn_webcam.npz
+modelos/avaliacao_cnn_webcam.json
