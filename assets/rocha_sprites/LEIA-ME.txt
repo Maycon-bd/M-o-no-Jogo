@@ -1,0 +1,20 @@
+SPRITES DO PERSONAGEM ROCHA - JOGO DE PLATAFORMA 2D
+
+01-parado.png         Personagem neutro / espera
+02-rolando.png        Rotacao em movimento
+03-pulando.png        Salto / subida
+04-velocidade.png     Corrida / rolamento muito rapido
+05-impacto.png       Colisao ou dano
+06-susto-queda.png   Queda livre / perigo
+07-vitoria.png       Conclusao de fase
+
+Todos os arquivos sao PNGs RGBA com fundo transparente.
+Canvas original: 1312 x 1199 pixels por imagem.
+
+Observacao de desenvolvimento: sao sete expressoes estaticas, nao uma
+animacao quadro a quadro completa. Para rolar de forma fluida, voce pode
+rotacionar o sprite via codigo e alternar a expressao em eventos. Para
+uma animacao profissional, padronize o tamanho visivel, o ponto central
+e o alinhamento de todas as imagens no motor de jogo.
+
+Personagem original criado a partir do conceito de uma rocha expressiva.

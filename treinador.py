@@ -11,12 +11,14 @@ ENDERECO = "http://127.0.0.1:11434/api/chat"
 
 
 def orientacao(dados):
+    if dados.get("vao_repetido"):
+        return "Pegue impulso antes da borda e abra a mão para saltar.", ("impulso", "borda")
     if dados["segundos_sem_mao"] >= 3:
         return "Mantenha a mão inteira visível na câmera.", ("visível", "câmera", "quadro")
     if dados["trocas_de_direcao"] >= 4:
-        return "Mantenha o mesmo gesto até chegar à estrela.", ("mant", "susten", "mesmo")
+        return "Mantenha o mesmo gesto enquanto avança pelo caminho.", ("mant", "susten", "mesmo")
     if dados["segundos_teclado"] > 0:
-        return "Segure a tecla de seta até alcançar a estrela.", ("seta", "tecla")
+        return "Use as setas para avançar pelo caminho.", ("seta", "tecla")
     return "Aponte com o indicador e mantenha o gesto enquanto anda.", ("indicador",)
 
 
@@ -36,14 +38,14 @@ def pedir_dica(dados):
         "options": {"temperature": 0, "num_predict": 96},
         "messages": [
             {"role": "system", "content": (
-                "Você é o treinador do jogo Mão no Jogo. Adapte a orientação técnica "
+                "Você é Mestre Granito, o sábio treinador do jogo Mão no Jogo. Adapte a orientação técnica "
                 "à rodada em uma frase curta em português. Preserve o sentido "
                 "da orientação e a ação que o jogador deve fazer. Não use números."
             )},
             {"role": "user", "content": (
                 f"Orientação técnica: {instrucao}\n"
                 f"Dados da rodada: {json.dumps(dados, ensure_ascii=False)}\n"
-                "Escreva a dica para a próxima rodada."
+                "Escreva a dica para a próxima tentativa."
             )},
         ],
     }

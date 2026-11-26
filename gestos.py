@@ -140,6 +140,7 @@ class ControleGestos:
         self.classificador = classificador if classificador is not None else MLP(modelo)
         self.filtro = Estabilizador()
         self.webcam = Webcam(indice)
+        self.pontos = None
 
     def __enter__(self):
         return self
@@ -149,6 +150,7 @@ class ControleGestos:
 
     def ler(self):
         frame, entrada, pontos = self.webcam.ler()
+        self.pontos = pontos
         if entrada is None:
             if hasattr(self.classificador, "imagem"):
                 self.classificador.imagem = None

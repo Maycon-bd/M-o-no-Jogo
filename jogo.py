@@ -24,7 +24,7 @@ RAIO_ESTRELA = 22
 VELOCIDADE = 420  # pixels por segundo
 DURACAO = 20.0
 DIRECAO = {"esquerda": -1, "direita": 1, "parar": 0}
-JANELA = "Mao no Jogo | Esc sai"
+JANELA = "Pedra Perdida"
 
 
 class Partida:
@@ -125,6 +125,8 @@ def desenhar_tela(partida, gesto, reconhecido, quadro):
 
     if quadro is not None:
         tela[10:190, LARGURA - 250:LARGURA - 10] = cv2.resize(quadro, (240, 180))
+    else:
+        escrever(tela, "Camera indisponivel - modo teclado", (470, 38), .48, (90, 190, 255), 1)
 
     return tela
 
@@ -161,6 +163,42 @@ def desenhar_resultado(tela, partida, resposta, treinador):
 
 def sem_acentos(texto):
     return unicodedata.normalize("NFKD", texto).encode("ascii", "ignore").decode()
+
+
+def tela_inicial():
+    iniciado = False
+    cursor_seta = None
+    if hasattr(ctypes, "windll"):
+        user32 = ctypes.windll.user32
+        user32.LoadCursorW.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
+        user32.LoadCursorW.restype = ctypes.c_void_p
+        user32.SetCursor.argtypes = [ctypes.c_void_p]
+        cursor_seta = user32.LoadCursorW(None, ctypes.c_void_p(32512))
+
+    def clicar(evento, x, y, flags, dados):
+        nonlocal iniciado
+        if cursor_seta:
+            user32.SetCursor(cursor_seta)
+        if evento == cv2.EVENT_LBUTTONUP and 330 <= x <= 630 and 290 <= y <= 360:
+            iniciado = True
+
+    cv2.namedWindow(JANELA, cv2.WINDOW_NORMAL)
+    cv2.setWindowProperty(JANELA, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+    cv2.setMouseCallback(JANELA, clicar)
+    while not iniciado:
+        tela = np.full((ALTURA, LARGURA, 3), (70, 40, 25), np.uint8)
+        escrever(tela, "Mao no Jogo", (290, 145), 1.6)
+        escrever(tela, "Use gestos para coletar estrelas!", (245, 220), .7, espessura=1)
+        cv2.rectangle(tela, (330, 290), (630, 360), (50, 150, 70), -1)
+        escrever(tela, "INICIAR JOGO", (365, 336), .8)
+        escrever(tela, "Clique em iniciar ou pressione Enter", (260, 420), .6, espessura=1)
+        cv2.imshow(JANELA, tela)
+        tecla = cv2.waitKey(20) & 0xFF
+        if tecla in (13, 32):
+            iniciado = True
+        elif tecla == 27 or cv2.getWindowProperty(JANELA, cv2.WND_PROP_VISIBLE) < 1:
+            return False
+    return True
 
 
 def jogar(controle, treinador=True):
@@ -218,20 +256,11 @@ def main():
     parser.add_argument("--modelo", type=Path, help="pesos da CNN (.npz) ou da MLP (.json)")
     parser.add_argument("--mlp", action="store_true", help="usa a MLP original")
     parser.add_argument("--sem-treinador", action="store_true", help="desliga o treinador")
+    parser.add_argument("--sem-voz", action="store_true", help="silencia a voz do Mestre Granito")
+    parser.add_argument("--semente", type=int, help="abre o mapa com a semente informada")
     args = parser.parse_args()
-
-    controle = None
-    if not args.teclado:
-        try:
-            caminho = args.modelo or (MODELO if args.mlp else PESOS_CNN)
-            cnn = CNN(caminho) if caminho.suffix.lower() == ".npz" else None
-            controle = ControleGestos(args.camera, caminho, classificador=cnn)
-        except (OSError, ImportError) as erro:
-            print(f"{erro}\nSem webcam: abrindo no modo teclado.")
-    try:
-        jogar(controle, treinador=not args.sem_treinador)
-    finally:
-        cv2.destroyAllWindows()
+    from aventura import executar
+    executar(args)
 
 
 if __name__ == "__main__":

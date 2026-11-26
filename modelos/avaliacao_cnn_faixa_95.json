@@ -1,0 +1,171 @@
+{
+  "origem_teste": "sintética",
+  "amostras_treino_cnn": 4500,
+  "amostras_validacao": 600,
+  "amostras_teste": 360,
+  "melhor_epoca": 3,
+  "acuracia_validacao": 0.9566666666666667,
+  "faixa_validacao": [
+    0.94,
+    0.96
+  ],
+  "epocas_executadas": 6,
+  "taxa_inicial": 0.003,
+  "pessoas_validacao": null,
+  "pessoas_teste": null,
+  "pesos_referencia": "cnn.npz",
+  "gestos": [
+    "esquerda",
+    "direita",
+    "parar"
+  ],
+  "mlp_pesos": "mlp.json",
+  "cnn": {
+    "acertos": 345,
+    "acuracia": 0.9583333333333334,
+    "matriz": [
+      [
+        114,
+        0,
+        6
+      ],
+      [
+        0,
+        118,
+        2
+      ],
+      [
+        4,
+        3,
+        113
+      ]
+    ],
+    "abaixo_de_080": 46,
+    "aceitos_corretos": 312,
+    "mediana_ms": 2.0586
+  },
+  "cnn_referencia": {
+    "acertos": 337,
+    "acuracia": 0.9361111111111111,
+    "matriz": [
+      [
+        114,
+        2,
+        4
+      ],
+      [
+        1,
+        109,
+        10
+      ],
+      [
+        5,
+        1,
+        114
+      ]
+    ],
+    "abaixo_de_080": 17,
+    "aceitos_corretos": 330,
+    "mediana_ms": 1.9431
+  },
+  "mlp": {
+    "acertos": 360,
+    "acuracia": 1.0,
+    "matriz": [
+      [
+        120,
+        0,
+        0
+      ],
+      [
+        0,
+        120,
+        0
+      ],
+      [
+        0,
+        0,
+        120
+      ]
+    ],
+    "abaixo_de_080": 0,
+    "aceitos_corretos": 360,
+    "mediana_ms": 0.0252
+  },
+  "teste_sintetico_independente": {
+    "semente": 901,
+    "amostras": 900,
+    "cnn": {
+      "acertos": 861,
+      "acuracia": 0.9566666666666667,
+      "matriz": [
+        [
+          285,
+          3,
+          12
+        ],
+        [
+          3,
+          293,
+          4
+        ],
+        [
+          5,
+          12,
+          283
+        ]
+      ],
+      "abaixo_de_080": 112,
+      "aceitos_corretos": 779,
+      "mediana_ms": 2.2479
+    },
+    "cnn_referencia": {
+      "acertos": 845,
+      "acuracia": 0.9388888888888889,
+      "matriz": [
+        [
+          288,
+          3,
+          9
+        ],
+        [
+          8,
+          270,
+          22
+        ],
+        [
+          8,
+          5,
+          287
+        ]
+      ],
+      "abaixo_de_080": 41,
+      "aceitos_corretos": 825,
+      "mediana_ms": 2.2407
+    },
+    "mlp": {
+      "acertos": 900,
+      "acuracia": 1.0,
+      "matriz": [
+        [
+          300,
+          0,
+          0
+        ],
+        [
+          0,
+          300,
+          0
+        ],
+        [
+          0,
+          0,
+          300
+        ]
+      ],
+      "abaixo_de_080": 2,
+      "aceitos_corretos": 898,
+      "mediana_ms": 0.0207
+    }
+  }
+}

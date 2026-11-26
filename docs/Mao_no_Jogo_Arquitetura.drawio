@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net">
+  <diagram id="mao-no-jogo" name="Arquitetura">
+    <mxGraphModel grid="1" gridSize="10" page="1" pageScale="1" pageWidth="794" pageHeight="865">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="faixa0" value="01  CONTROLE DE PREDA  /  EM TEMPO REAL" style="rounded=1;fillColor=#fbfdfd;strokeColor=#d5e2e4;verticalAlign=top;align=left;spacing=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="45.0" y="60.0" width="673.6500000000001" height="334.8" />
+        </mxCell>
+        <mxCell id="faixa1" value="02  MESTRE GRANITO  /  DICAS EM SEGUNDO PLANO" style="rounded=1;fillColor=#fbfdfd;strokeColor=#d5e2e4;verticalAlign=top;align=left;spacing=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="45.0" y="419.1" width="673.6500000000001" height="214.65" />
+        </mxCell>
+        <mxCell id="faixa2" value="03  TREINO DA CNN  /  FORA DA PARTIDA" style="rounded=1;fillColor=#fbfdfd;strokeColor=#d5e2e4;verticalAlign=top;align=left;spacing=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="45.0" y="656.7" width="673.6500000000001" height="108.0" />
+        </mxCell>
+        <mxCell id="cam" value="&lt;b&gt;Webcam e OpenCV&lt;/b&gt;&lt;br&gt;Quadros de vídeo espelhados" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f1fb;strokeColor=#36658c;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="61.2" y="101.85" width="191.70000000000002" height="64.80000000000001" />
+        </mxCell>
+        <mxCell id="land" value="&lt;b&gt;MediaPipe&lt;/b&gt;&lt;br&gt;21 pontos da mão" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5effa;strokeColor=#795385;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="285.3" y="101.85" width="191.70000000000002" height="64.80000000000001" />
+        </mxCell>
+        <mxCell id="geom" value="&lt;b&gt;Regras geométricas&lt;/b&gt;&lt;br&gt;Inclinação, palma, punho e três dedos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf5f3;strokeColor=#246c67;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="509.4" y="101.85" width="193.05" height="64.80000000000001" />
+        </mxCell>
+        <mxCell id="teclado" value="&lt;b&gt;Teclado e mouse&lt;/b&gt;&lt;br&gt;Controles alternativos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f1fb;strokeColor=#36658c;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="61.2" y="207.15" width="191.70000000000002" height="74.25" />
+        </mxCell>
+        <mxCell id="cnn" value="&lt;b&gt;Rasterização e CNN&lt;/b&gt;&lt;br&gt;Imagem 64 × 64. Três classes e filtro temporal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5effa;strokeColor=#795385;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="285.3" y="207.15" width="191.70000000000002" height="74.25" />
+        </mxCell>
+        <mxCell id="comando" value="&lt;b&gt;Seleção de comandos&lt;/b&gt;&lt;br&gt;A geometria tem prioridade sobre a CNN" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf5f3;strokeColor=#246c67;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="509.4" y="207.15" width="193.05" height="74.25" />
+        </mxCell>
+        <mxCell id="save" value="&lt;b&gt;Save em JSON&lt;/b&gt;&lt;br&gt;Semente, fase e checkpoint" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f3f3;strokeColor=#546d75;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="61.2" y="321.9" width="191.70000000000002" height="58.050000000000004" />
+        </mxCell>
+        <mxCell id="motor" value="&lt;b&gt;Motor da aventura&lt;/b&gt;&lt;br&gt;Cenas, física e fases por semente" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf5f3;strokeColor=#246c67;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="285.3" y="321.9" width="191.70000000000002" height="58.050000000000004" />
+        </mxCell>
+        <mxCell id="hud" value="&lt;b&gt;Tela OpenCV&lt;/b&gt;&lt;br&gt;Jogo, câmera e leitura dos gestos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4df;strokeColor=#986321;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="509.4" y="321.9" width="193.05" height="58.050000000000004" />
+        </mxCell>
+        <mxCell id="prompt" value="&lt;b&gt;Treinador assíncrono&lt;/b&gt;&lt;br&gt;Métricas e instruções ao SLM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf5f3;strokeColor=#246c67;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="61.2" y="458.25" width="191.70000000000002" height="66.15" />
+        </mxCell>
+        <mxCell id="llm" value="&lt;b&gt;Ollama / Qwen2.5&lt;/b&gt;&lt;br&gt;SLM 0.5B · Q4_K_M · API local" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5effa;strokeColor=#795385;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="285.3" y="458.25" width="191.70000000000002" height="66.15" />
+        </mxCell>
+        <mxCell id="validar" value="&lt;b&gt;Validação da dica&lt;/b&gt;&lt;br&gt;JSON validado ou dica de contingência" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf5f3;strokeColor=#246c67;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="509.4" y="458.25" width="193.05" height="66.15" />
+        </mxCell>
+        <mxCell id="legenda" value="&lt;b&gt;Painel do Granito&lt;/b&gt;&lt;br&gt;Dica exibida em texto" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4df;strokeColor=#986321;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="61.2" y="562.2" width="191.70000000000002" height="56.7" />
+        </mxCell>
+        <mxCell id="piper" value="&lt;b&gt;Piper / Cadu&lt;/b&gt;&lt;br&gt;Sintetiza dicas e falas do roteiro" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5effa;strokeColor=#795385;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="285.3" y="562.2" width="191.70000000000002" height="56.7" />
+        </mxCell>
+        <mxCell id="som" value="&lt;b&gt;Alto-falantes&lt;/b&gt;&lt;br&gt;WAV com opção de silenciar" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4df;strokeColor=#986321;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="509.4" y="562.2" width="193.05" height="56.7" />
+        </mxCell>
+        <mxCell id="dados" value="&lt;b&gt;Dados de treino&lt;/b&gt;&lt;br&gt;Gestos sintéticos ou pontos em CSV" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f3f3;strokeColor=#546d75;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="61.2" y="695.85" width="191.70000000000002" height="51.300000000000004" />
+        </mxCell>
+        <mxCell id="treino" value="&lt;b&gt;Treino em PyTorch&lt;/b&gt;&lt;br&gt;Treino, validação e teste" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf5f3;strokeColor=#246c67;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="285.3" y="695.85" width="191.70000000000002" height="51.300000000000004" />
+        </mxCell>
+        <mxCell id="peso" value="&lt;b&gt;Pesos .npz&lt;/b&gt;&lt;br&gt;Usados pela CNN na inicialização" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f3f3;strokeColor=#546d75;fontColor=#142833;fontFamily=Segoe UI;fontSize=13;spacing=5;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="509.4" y="695.85" width="193.05" height="51.300000000000004" />
+        </mxCell>
+        <mxCell id="e0" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=1.0;exitY=0.521;entryX=0.0;entryY=0.521;" edge="1" parent="1" source="cam" target="land">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=1.0;exitY=0.521;entryX=0.0;entryY=0.521;" edge="1" parent="1" source="land" target="geom">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;" edge="1" parent="1" source="land" target="cnn">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=0.503;exitY=1.0;entryX=0.503;entryY=0.0;" edge="1" parent="1" source="geom" target="comando">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=1.0;exitY=0.509;entryX=0.0;entryY=0.509;" edge="1" parent="1" source="cnn" target="comando">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=0.5;exitY=1.0;entryX=0.79;entryY=1.0;" edge="1" parent="1" source="teclado" target="comando">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="157.05" y="294.9" />
+              <mxPoint x="661.95" y="294.9" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=0.357;exitY=1.0;entryX=0.507;entryY=0.0;" edge="1" parent="1" source="comando" target="motor">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="578.25" y="307.05" />
+              <mxPoint x="382.5" y="307.05" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=0.0;exitY=0.349;entryX=1.0;entryY=0.349;" edge="1" parent="1" source="motor" target="save">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e8" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=1.0;exitY=0.698;entryX=0.0;entryY=0.698;" edge="1" parent="1" source="save" target="motor">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e9" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=1.0;exitY=0.512;entryX=0.0;entryY=0.512;" edge="1" parent="1" source="motor" target="hud">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e10" style="endArrow=classic;html=1;strokeColor=#997027;exitX=0.5;exitY=1.0;entryX=0.0;entryY=0.49;" edge="1" parent="1" source="motor" target="prompt">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="381.15" y="405.6" />
+              <mxPoint x="53.1" y="405.6" />
+              <mxPoint x="53.1" y="490.65" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=1.0;exitY=0.531;entryX=0.0;entryY=0.531;" edge="1" parent="1" source="prompt" target="llm">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e12" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=1.0;exitY=0.531;entryX=0.0;entryY=0.531;" edge="1" parent="1" source="llm" target="validar">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e13" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=0.301;exitY=1.0;entryX=0.5;entryY=0.0;" edge="1" parent="1" source="validar" target="piper">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="567.45" y="539.25" />
+              <mxPoint x="381.15" y="539.25" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=0.636;exitY=1.0;entryX=0.5;entryY=0.0;" edge="1" parent="1" source="validar" target="legenda">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="632.25" y="551.4" />
+              <mxPoint x="157.05" y="551.4" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e15" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=1.0;exitY=0.476;entryX=0.0;entryY=0.476;" edge="1" parent="1" source="piper" target="som">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e16" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=1.0;exitY=0.474;entryX=0.0;entryY=0.474;" edge="1" parent="1" source="dados" target="treino">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e17" style="endArrow=classic;html=1;strokeColor=#55757b;exitX=1.0;exitY=0.474;entryX=0.0;entryY=0.474;" edge="1" parent="1" source="treino" target="peso">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="legenda_diagrama" value="Legenda  ·  Azul: entrada  ·  Verde: processamento  ·  Roxo: inferência  ·  Âmbar: saída  ·  Cinza: arquivo local" style="text;align=left;whiteSpace=wrap;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="45.0" y="784.95" width="673.6500000000001" height="25" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

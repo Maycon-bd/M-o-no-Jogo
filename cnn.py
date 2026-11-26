@@ -9,6 +9,8 @@ from numpy.lib.stride_tricks import sliding_window_view
 from gestos import DEDOS, GESTOS
 
 PESOS_CNN = Path(__file__).resolve().parent / "modelos" / "cnn.npz"
+PESOS_CNN_APRIMORADA = PESOS_CNN.with_name("cnn_aprimorada.npz")
+PESOS_CNN_JOGO = PESOS_CNN.with_name("cnn_faixa_95.npz")
 LADO = 64
 
 

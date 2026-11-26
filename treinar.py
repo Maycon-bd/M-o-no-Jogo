@@ -24,7 +24,7 @@ PALMA = np.array([
 ], dtype=np.float32)
 
 
-def sintetizar(semente, por_gesto, teste=False):
+def sintetizar(semente, por_gesto, teste=False, ampliar=False):
     rng = np.random.default_rng(semente)
     entradas, rotulos = [], []
     for gesto in GESTOS:
@@ -32,22 +32,28 @@ def sintetizar(semente, por_gesto, teste=False):
             pontos = PALMA.copy()
             if gesto != "parar":
                 for inicio in (9, 13, 17):
-                    curvatura = rng.uniform(.65, 1.12) if teste else rng.uniform(.72, 1.02)
+                    curvatura = rng.uniform(.60, 1.18) if ampliar else (
+                        rng.uniform(.65, 1.12) if teste else rng.uniform(.72, 1.02))
                     pontos[inicio + 1:inicio + 4] = pontos[inicio] + np.array([
                         (.02, -.21, -.07), (.03, -.23, -.23), (.00, -.06, -.30),
                     ]) * curvatura
                 pontos[2:5] += [(0, -.04, -.04), (.20, -.08, -.12), (.45, -.10, -.20)]
+            if ampliar:
+                for inicio in (1, 5, 9, 13, 17):
+                    pontos[inicio + 1:inicio + 4] = pontos[inicio] + (
+                        pontos[inicio + 1:inicio + 4] - pontos[inicio]) * rng.uniform(.85, 1.15)
             pontos[:, 0] *= rng.choice((-1, 1)) * rng.uniform(.65, 1.24)
             pontos[:, 1] *= rng.uniform(.86, 1.13)
             if gesto == "parar":
                 angulo = rng.uniform(-180, 180)
             else:
                 direcao = -1 if gesto == "esquerda" else 1
-                abertura = 29 if teste else 23
+                abertura = 35 if ampliar else (29 if teste else 23)
                 angulo = direcao * 90 + rng.uniform(-abertura, abertura)
             seno, cosseno = np.sin(np.deg2rad(angulo)), np.cos(np.deg2rad(angulo))
             pontos[:, :2] = pontos[:, :2] @ [[cosseno, seno], [-seno, cosseno]]
-            pontos += rng.normal(0, .042 if teste else .026, pontos.shape)
+            ruido = rng.uniform(.018, .055) if ampliar else (.042 if teste else .026)
+            pontos += rng.normal(0, ruido, pontos.shape)
             entradas.append(normalizar(pontos))
             rotulos.append(gesto)
     return np.asarray(entradas), np.asarray(rotulos)
